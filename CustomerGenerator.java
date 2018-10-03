@@ -11,11 +11,10 @@ import java.util.Random;
 
 public class CustomerGenerator {
 	
-	private PriorityQueue<Customer> customerPriorityQueue;
-	
-	public CustomerGenerator(){
+	//Method to generate Customer
+	public static PriorityQueue<Customer> createCustomers(int numOfCust){
 		
-		//Custom comparator to compare Customer arrival times
+		
 		Comparator<Customer> arrivalTimeComparator = new Comparator<Customer>(){
 			@Override
 			public int compare(Customer p1, Customer p2) {
@@ -24,15 +23,11 @@ public class CustomerGenerator {
 			
 		};
 		
-		customerPriorityQueue = new PriorityQueue<>(arrivalTimeComparator);
-	}
-	
-	//Method to generate Customer
-	public void createCustomers(int numOfProc){
+		PriorityQueue<Customer> customerPriorityQueue = new PriorityQueue<>(arrivalTimeComparator);
 		
 		Random r = new Random();
 		
-		for (int i = 0; i < numOfProc; i++){
+		for (int i = 0; i < numOfCust; i++){
 			Customer customer;
 			
 			//Randomly generates customer arrival time @ beginning of minute
@@ -45,27 +40,9 @@ public class CustomerGenerator {
 			
 			customerPriorityQueue.add(customer);
 		}
-	}
-	
-	//Returns the Customer queue as an array 
-	public ArrayList<Customer> getNewProcessArrayList(){
-		createCustomers(26);
-		ArrayList<Customer> list = new ArrayList<Customer>();
 		
-		while (!customerPriorityQueue.isEmpty()){
-			list.add(customerPriorityQueue.remove());
-		}
+		return customerPriorityQueue;
 		
-		customerPriorityQueue.clear();
-		return list;
-	}
-	
-	public Customer peek() {
-		return customerPriorityQueue.peek();
-	}
-	
-	public Customer remove() {
-		return customerPriorityQueue.remove();
 	}
 	
 }
