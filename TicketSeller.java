@@ -1,12 +1,10 @@
+import java.util.PriorityQueue;
 
-
-public interface TicketSeller{
-
-	public boolean checkAvailableSeats(boolean[][] seats);
-	public void assignSeatToCustomer();
-	public void sell();
-	public boolean checkIfSeatIsAssigned();
-	public int returnProcTime();
-	public void setProcTime(int time);
+public abstract class TicketSeller implements Runnable{
+	
+	abstract boolean checkAvailableSeats(boolean[][] seats);
+	abstract void assignSeatToCustomer();
+	abstract void sell();
+	abstract boolean checkIfSeatIsAssigned();
 	
 }

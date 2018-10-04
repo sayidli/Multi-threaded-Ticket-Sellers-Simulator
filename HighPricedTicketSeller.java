@@ -1,6 +1,15 @@
+import java.util.PriorityQueue;
 
-public class HighPricedTicketSeller implements TicketSeller{
+public class HighPricedTicketSeller extends TicketSeller{
 
+	private PriorityQueue<Customer> customerQueue;
+	private Seat[][] seatingMap;
+	
+	public HighPricedTicketSeller(int numOfCustomers, Seat[][] seatingMap){
+		customerQueue = CustomerGenerator.createCustomers(numOfCustomers);
+		this.seatingMap = seatingMap;
+	}
+	
 	@Override
 	public boolean checkAvailableSeats(boolean[][] seats) {
 		// TODO Auto-generated method stub
@@ -25,16 +34,10 @@ public class HighPricedTicketSeller implements TicketSeller{
 		return false;
 	}
 
-	@Override
-	public int returnProcTime() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
-	public void setProcTime(int time) {
-		// TODO Auto-generated method stub
-		
+	public void run() {
+
 	}
 
 }
