@@ -3,9 +3,9 @@ public class Theater {
 	
 	public static void main (String[] args){
 		
-		Seat[][] seatMap = new Seat[10][10];
+		SeatingMap seatMap = new SeatingMap();
 		int numOfCustomers = 5;
-		
+
 		HighPricedTicketSeller highPricedTicketSeller = new HighPricedTicketSeller(numOfCustomers, seatMap);
 		MidPricedTicketSeller midPricedTicketSeller = new MidPricedTicketSeller(numOfCustomers, seatMap);
 		LowPriceTicketSeller lowPriceTicketSeller = new LowPriceTicketSeller(numOfCustomers, seatMap);
