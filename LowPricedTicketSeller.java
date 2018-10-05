@@ -7,7 +7,7 @@ public class LowPricedTicketSeller extends TicketSeller {
 	private int rowStart = 9;
 	private int availRow;
 	private int avialCol;
-	public LowPriceTicketSeller(int numOfCustomers, Seat[][] seatingMap) {
+	public LowPricedTicketSeller(int numOfCustomers, Seat[][] seatingMap) {
 		customerQueue = CustomerGenerator.createCustomers(numOfCustomers);
 		this.seatingMap = seatingMap;
 	}
