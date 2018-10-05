@@ -1,13 +1,14 @@
 import java.sql.Time;
 import java.util.PriorityQueue;
 
+
 public class MidPricedTicketSeller extends TicketSeller {
 
 	private PriorityQueue<Customer> customerQueue;
-	private Seat[][] seatingMap;
+	private SeatingMap seatingMap;
 
 	
-	public MidPricedTicketSeller(int numOfCustomers, Seat[][] seatingMap) {
+	public MidPricedTicketSeller(int numOfCustomers, SeatingMap seatingMap) {
 		customerQueue = CustomerGenerator.createCustomers(numOfCustomers);
 		this.seatingMap = seatingMap;
 	}
