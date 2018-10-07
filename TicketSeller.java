@@ -13,7 +13,7 @@ public abstract class TicketSeller implements Runnable {
 	public TicketSeller(Theater t, String name) {
 		theater = t;
 		customers = generateCustomers(t.getNumOfCustomers());
-		System.out.println(Arrays.toString(customers));
+		System.out.println(name + "Queue: " + Arrays.toString(customers));
 		this.name = name;
 	}
 
@@ -24,7 +24,7 @@ public abstract class TicketSeller implements Runnable {
 	private int[] generateCustomers(int length) {
 		int[] ret = new int[length];
 		for (int i = 0; i < length; i++) {
-			ret[i] = (int) (Math.random() * 100);
+			ret[i] = (int) (Math.random() * 60);
 		}
 		Arrays.sort(ret);
 		return ret;
@@ -51,10 +51,10 @@ public abstract class TicketSeller implements Runnable {
 					}
 					
 					nextAvailable = theater.getCurrentTime() + getProcessingTime();
-					System.out.println(name + " Assigned Seat: " + theater.getCurrentTime());
+					System.out.println(name + " Assigned Seat: " + "0:" + String.format("%02d", theater.getCurrentTime()));
 					theater.printSeats();
 				} else {
-					System.out.println(name + " Theater full: " + theater.getCurrentTime());
+					System.out.println(name + " Theater full: " + "0:" + String.format("%02d", theater.getCurrentTime()));
 					// theater.printSeats();
 				}
 				customerIndex++;
@@ -76,7 +76,7 @@ public abstract class TicketSeller implements Runnable {
 		while (hasCustomersRemaining()) {
 			synchronized (this) {
 				while (arrivalIndex < customers.length && customers[arrivalIndex] == theater.getCurrentTime()) {
-					System.out.println(name + " Arrived: " + theater.getCurrentTime());
+					System.out.println(name + " Arrived: " + "0:" + String.format("%02d", theater.getCurrentTime()));
 					arrivalIndex++;
 				}
 				if (nextAvailable <= theater.getCurrentTime()) {

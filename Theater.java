@@ -97,12 +97,14 @@ public class Theater implements Runnable{
 			}
 			currentTime++;
 			
-			System.out.println(currentTime);
+			System.out.println("0:" + String.format("%02d", currentTime));
+			
 		}
 		System.out.println("Finished");
 	}
 	
 	public static void main (String[] args){
+		
 		//Use command line for argument
 		if (args.length>0) {
 			Theater t = new Theater(10,new Integer(args[0]));
@@ -115,6 +117,7 @@ public class Theater implements Runnable{
 			Theater t = new Theater(10,scan.nextInt());
 			new Thread(t).start();
 		}
+		
 		
 	}
 	
