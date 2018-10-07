@@ -11,6 +11,7 @@ public class Customer {
 	public void setSuccessfulSale(boolean sale) {
 		successfulSale = sale;
 	}
+	
 	public boolean isSaleSuccessful() {
 		return successfulSale;
 	}
