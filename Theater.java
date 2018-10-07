@@ -95,9 +95,19 @@ public class Theater implements Runnable{
 	}
 	
 	public static void main (String[] args){
-		Theater t = new Theater(10, 15);
+		//Use command line for argument
+		if (args.length>0) {
+			Theater t = new Theater(10,new Integer(args[0]));
+			new Thread(t).start();
+		}
+		//Use console for argument
+		else {
+			System.out.println("Enter how many customers for each seller:");
+			Scanner scan = new Scanner(System.in);
+			Theater t = new Theater(10,scan.nextInt());
+			new Thread(t).start();
+		}
 		
-		new Thread(t).start();
 	}
 	
 }
