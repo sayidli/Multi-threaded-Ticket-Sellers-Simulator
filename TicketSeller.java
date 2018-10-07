@@ -49,7 +49,7 @@ public abstract class TicketSeller implements Runnable {
 					}else{
 						theater.assignSeats(seatIndex[0], seatIndex[1], name + "" + (customerIndex+1));
 					}
-					theater.assignSeats(seatIndex[0], seatIndex[1], name + " " + customerIndex);
+					
 					nextAvailable = theater.getCurrentTime() + getProcessingTime();
 					System.out.println(name + " Assigned Seat: " + theater.getCurrentTime());
 					theater.printSeats();
