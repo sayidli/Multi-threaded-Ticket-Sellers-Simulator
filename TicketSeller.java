@@ -9,7 +9,7 @@ public abstract class TicketSeller implements Runnable {
 	private int nextAvailable = 0;
 	private boolean processedTime = false;
 	private String name;
-	
+
 	public TicketSeller(Theater t, String name) {
 		theater = t;
 		customers = generateCustomers(t.getNumOfCustomers());
@@ -40,15 +40,18 @@ public abstract class TicketSeller implements Runnable {
 
 	public void makeSale() {
 		if (customers[customerIndex] <= theater.getCurrentTime()) {
-			synchronized (theater.getSeats()) {
+			synchronized (theater.getLock()) {
 				int[] seatIndex = checkAvailableSeats();
 				if (seatIndex != null) {
-					theater.getSeats()[seatIndex[0]][seatIndex[1]] = true;
+					theater.assignSeats(seatIndex[0], seatIndex[1], name + " " + customerIndex);
+					nextAvailable = theater.getCurrentTime() + getProcessingTime();
+					System.out.println(name + " Assigned Seat: " + theater.getCurrentTime());
+					theater.printSeats();
+				} else {
+					System.out.println(name + " Theater full: " + theater.getCurrentTime());
+					// theater.printSeats();
 				}
-				nextAvailable = theater.getCurrentTime() + getProcessingTime();
 				customerIndex++;
-
-				System.out.println(name + " Assigned Seat: " + theater.getCurrentTime());
 			}
 		}
 	}
@@ -65,14 +68,16 @@ public abstract class TicketSeller implements Runnable {
 	public void run() {
 		System.out.println(name + " Start");
 		while (hasCustomersRemaining()) {
-			while (arrivalIndex < customers.length && customers[arrivalIndex] == theater.getCurrentTime()) {
-				System.out.println(name + " Arrived: " + theater.getCurrentTime());
-				arrivalIndex++;
+			synchronized (this) {
+				while (arrivalIndex < customers.length && customers[arrivalIndex] == theater.getCurrentTime()) {
+					System.out.println(name + " Arrived: " + theater.getCurrentTime());
+					arrivalIndex++;
+				}
+				if (nextAvailable <= theater.getCurrentTime()) {
+					makeSale();
+				}
+				processedTime = true;
 			}
-			if (nextAvailable <= theater.getCurrentTime()) {
-				makeSale();
-			}
-			processedTime = true;
 		}
 		processedTime = true;
 		System.out.println(name + " Done");

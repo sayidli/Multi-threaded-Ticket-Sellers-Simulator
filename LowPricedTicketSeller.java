@@ -8,7 +8,7 @@ public class LowPricedTicketSeller extends TicketSeller {
 	int[] checkAvailableSeats() {
 		boolean[][] seat = getTheater().getSeats();
 		int row = 9, column = 0;
-		while(!seat[row][column]) {
+		while(seat[row][column]) {
 			if(column == 9) {
 				if(row == 0) {
 					return null; //No seats available

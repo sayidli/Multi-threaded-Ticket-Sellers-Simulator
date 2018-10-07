@@ -9,12 +9,13 @@ public class MidPricedTicketSeller extends TicketSeller {
 		boolean[][] seat = getTheater().getSeats();
 		int[] rowsToCheck = new int[] {4, 5, 3, 6, 2, 7, 1, 8, 0, 9};
 		int rowCheckIndex = 0, column = 0;
-		while(!seat[rowsToCheck[rowCheckIndex]][column]) {
+		while(seat[rowsToCheck[rowCheckIndex]][column]) {
 			if(column == 9) {
 				if(rowCheckIndex == 9) {
 					return null;
 				}else{
 					rowCheckIndex++;
+					column = 0;
 				}
 			}else {
 				column++;

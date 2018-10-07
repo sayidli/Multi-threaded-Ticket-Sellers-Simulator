@@ -7,26 +7,33 @@ public class Theater implements Runnable{
 	private boolean[][] seats;
 	private int currentTime = 0;
 	private TicketSeller[] sellers;
+	private String[][] printedSeats;
+	private Object lock = new Object();
 	
 	public Theater(int theaterSize, int numOfCustomers) {
 		this.theaterSize = theaterSize;
 		this.numOfCustomers = numOfCustomers;
 		seats = new boolean[theaterSize][theaterSize];
+		printedSeats = new String[theaterSize][theaterSize];
 		
 		sellers = new TicketSeller[] {
-				//new HighPricedTicketSeller(this),
+				new HighPricedTicketSeller(this, "H"),
 				
-				/*new MidPricedTicketSeller(this),
-				new MidPricedTicketSeller(this),
-				new MidPricedTicketSeller(this),
+				new MidPricedTicketSeller(this, "M1"),
+				new MidPricedTicketSeller(this, "M2"),
+				new MidPricedTicketSeller(this, "M3"),
 				
-				new LowPricedTicketSeller(this),
-				new LowPricedTicketSeller(this),
-				new LowPricedTicketSeller(this),
-				new LowPricedTicketSeller(this),
-				new LowPricedTicketSeller(this),*/
+				/*new LowPricedTicketSeller(this, "L1"),
+				new LowPricedTicketSeller(this, "L2"),
+				new LowPricedTicketSeller(this, "L3"),*/
+				new LowPricedTicketSeller(this, "L4"),
+				new LowPricedTicketSeller(this, "L5"),
 				new LowPricedTicketSeller(this, "L6")
 		};
+	}
+	
+	public Object getLock() {
+		return lock;
 	}
 	
 	public int getTheaterSize() {
@@ -46,9 +53,14 @@ public class Theater implements Runnable{
 	}
 	
 	public void printSeats() {
-		for(boolean[] row : seats) {
+		for(String[] row : printedSeats) {
 			System.out.println(Arrays.toString(row));
 		}
+	}
+	
+	public void assignSeats(int row, int column, String customerName) {
+		seats[row][column] = true;
+		printedSeats[row][column] = customerName;
 	}
 	
 	public void run() {
