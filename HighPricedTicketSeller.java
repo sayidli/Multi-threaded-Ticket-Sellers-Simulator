@@ -1,43 +1,31 @@
-import java.util.PriorityQueue;
+public class HighPricedTicketSeller extends TicketSeller {
 
-public class HighPricedTicketSeller extends TicketSeller{
-
-	private PriorityQueue<Customer> customerQueue;
-	private SeatingMap seatingMap;
-	
-	public HighPricedTicketSeller(int numOfCustomers, SeatingMap seatingMap) {
-		customerQueue = CustomerGenerator.createCustomers(numOfCustomers);
-		this.seatingMap = seatingMap;
-	}
-	
-	@Override
-	public boolean checkAvailableSeats(boolean[][] seats) {
-		// TODO Auto-generated method stub
-		return false;
+	public HighPricedTicketSeller(Theater t, String name) {
+		super(t, name);
 	}
 
 	@Override
-	public void assignSeatToCustomer() {
-		// TODO Auto-generated method stub
-		
+	int[] checkAvailableSeats() {
+		boolean[][] seat = getTheater().getSeats();
+		int row = 0, column = 0;
+		while(!seat[row][column]) {
+			if(column == 9) {
+				if(row == 9) {
+					return null; //No seats available
+				}else {
+					column = 0;
+					row++;
+				}
+			}else {
+				column++;
+			}
+		}
+		return new int[] {row, column};
 	}
 
 	@Override
-	public void sell() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean checkIfSeatIsAssigned() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public void run() {
-System.out.println("1");
+	public int getProcessingTime() {
+		return (int)(Math.random()* 2) + 1;
 	}
 
 }

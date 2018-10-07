@@ -1,46 +1,31 @@
-import java.sql.Time;
-import java.util.PriorityQueue;
-
-
 public class MidPricedTicketSeller extends TicketSeller {
 
-	private PriorityQueue<Customer> customerQueue;
-	private SeatingMap seatingMap;
-
-	
-	public MidPricedTicketSeller(int numOfCustomers, SeatingMap seatingMap) {
-		customerQueue = CustomerGenerator.createCustomers(numOfCustomers);
-		this.seatingMap = seatingMap;
-	}
-	
-	@Override
-	public boolean checkAvailableSeats(boolean[][] seats) {
-		// TODO Auto-generated method stub
-		return false;
+	public MidPricedTicketSeller(Theater t, String name) {
+		super(t, name);
 	}
 
 	@Override
-	public void assignSeatToCustomer() {
-		// TODO Auto-generated method stub
-		
+	int[] checkAvailableSeats() {
+		boolean[][] seat = getTheater().getSeats();
+		int[] rowsToCheck = new int[] {4, 5, 3, 6, 2, 7, 1, 8, 0, 9};
+		int rowCheckIndex = 0, column = 0;
+		while(!seat[rowsToCheck[rowCheckIndex]][column]) {
+			if(column == 9) {
+				if(rowCheckIndex == 9) {
+					return null;
+				}else{
+					rowCheckIndex++;
+				}
+			}else {
+				column++;
+			}
+		}
+		return new int[] {rowsToCheck[rowCheckIndex], column};
 	}
 
 	@Override
-	public void sell() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean checkIfSeatIsAssigned() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public void run() {
-		
+	public int getProcessingTime() {
+		return (int)(Math.random() * 3) + 2;
 	}
 
 }
