@@ -16,8 +16,15 @@ public class Theater implements Runnable{
 		seats = new boolean[theaterSize][theaterSize];
 		printedSeats = new String[theaterSize][theaterSize];
 		
+		//initialize empty seats with dashes
+		for (int i = 0; i<theaterSize;i++) {
+			for(int j = 0; j<theaterSize;j++) {
+				printedSeats[i][j]="____";
+			}
+		}
+		
 		sellers = new TicketSeller[] {
-				new HighPricedTicketSeller(this, "H"),
+				new HighPricedTicketSeller(this, "H0"),
 				
 				new MidPricedTicketSeller(this, "M1"),
 				new MidPricedTicketSeller(this, "M2"),
