@@ -23,9 +23,9 @@ public class Theater implements Runnable{
 				new MidPricedTicketSeller(this, "M2"),
 				new MidPricedTicketSeller(this, "M3"),
 				
-				/*new LowPricedTicketSeller(this, "L1"),
+				new LowPricedTicketSeller(this, "L1"),
 				new LowPricedTicketSeller(this, "L2"),
-				new LowPricedTicketSeller(this, "L3"),*/
+				new LowPricedTicketSeller(this, "L3"),
 				new LowPricedTicketSeller(this, "L4"),
 				new LowPricedTicketSeller(this, "L5"),
 				new LowPricedTicketSeller(this, "L6")

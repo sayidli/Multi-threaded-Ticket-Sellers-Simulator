@@ -24,7 +24,7 @@ public abstract class TicketSeller implements Runnable {
 	private int[] generateCustomers(int length) {
 		int[] ret = new int[length];
 		for (int i = 0; i < length; i++) {
-			ret[i] = (int) (Math.random() * 50);
+			ret[i] = (int) (Math.random() * 100);
 		}
 		Arrays.sort(ret);
 		return ret;
