@@ -73,13 +73,28 @@ public abstract class TicketSeller implements Runnable {
 	@Override
 	public void run() {
 		System.out.println(name + " Start");
+		//Var to print sold time once
+		boolean once = false;
 		while (hasCustomersRemaining()) {
+			
 			synchronized (this) {
 				while (arrivalIndex < customers.length && customers[arrivalIndex] == theater.getCurrentTime()) {
+					
 					System.out.println(name + " Arrived: " + "0:" + String.format("%02d", theater.getCurrentTime()));
 					arrivalIndex++;
+					//Reactivate once for use in next customer
+					if (once) {
+						once = false;
+					}
 				}
-				if (nextAvailable <= theater.getCurrentTime()) {
+				//Check if seller has completed sale
+				if (nextAvailable!=0&&nextAvailable==theater.getCurrentTime()&&!once) {
+					System.out.println(name + " Sold: " + "0:" + String.format("%02d", theater.getCurrentTime()));
+					makeSale();
+					once=true;
+				}
+				//else continue makeSale per usual
+				else if (nextAvailable <= theater.getCurrentTime()) {
 					makeSale();
 				}
 				processedTime = true;
