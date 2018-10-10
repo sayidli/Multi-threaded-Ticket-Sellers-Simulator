@@ -79,7 +79,7 @@ public class Theater implements Runnable{
 			new Thread(ts).start();
 		}
 		
-		while(!end) {
+		while(!end && currentTime < 60) {
 			end = true;
 			for(TicketSeller ts : sellers) {
 				if(ts.hasCustomersRemaining()) {
